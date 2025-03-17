@@ -21,7 +21,6 @@ variable "node_count" {
 variable "node_machine_type" {
   description = "Machin type for the node"
   type        = string
-  default     = "e2-micro"
 }
 
 variable "node_disk_size_gb" {
