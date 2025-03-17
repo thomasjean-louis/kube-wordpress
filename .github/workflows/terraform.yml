@@ -14,13 +14,18 @@ jobs:
       TF_VAR_gcp_project_id: ${{ secrets.GCP_PROJECT_ID }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout Repo
+        uses: actions/checkout@v4
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
+        uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.5.0
+          terraform_version: latest
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ env.TF_VAR_gcp_credentials }}
 
       - name: Initialize Terraform
         run: terraform init -backend-config="bucket=kube-wordpress-bucket" -backend-config="prefix=kube-wodpress/state" 
