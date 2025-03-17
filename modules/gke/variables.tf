@@ -17,3 +17,7 @@ variable "node_count" {
 variable "node_machine_type" {
   type = string
 }
+
+variable "node_disk_size_gb" {
+  type = number
+}

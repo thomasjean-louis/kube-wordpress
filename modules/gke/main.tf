@@ -19,6 +19,8 @@ resource "google_container_node_pool" "main_nodes" {
   node_config {
     machine_type = var.node_machine_type
     preemptible  = false
+    disk_type = "pd-standard"  # Use HDD instead of SSD
+    disk_size_gb = var.node_disk_size_gb 
   }
 }
 
