@@ -7,6 +7,11 @@ variable "region" {
   default     = "us-east1"
 }
 
+variable "zone" {
+  type        = string
+  default     = "us-east1-a"
+}
+
 variable "environment" {
   description = "Environment name (admin, dev, prod)"
   type        = string
