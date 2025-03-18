@@ -6,4 +6,5 @@ module "gke" {
   node_count        = var.node_count
   node_machine_type = var.node_machine_type
   node_disk_size_gb = var.node_disk_size_gb
+  zone = var.zone
 }
