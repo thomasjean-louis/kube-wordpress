@@ -9,6 +9,9 @@ permissions:
   id-token: write
   contents: read
 
+env:
+  ACTIONS_STEP_DEBUG: true
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
