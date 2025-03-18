@@ -29,8 +29,7 @@ jobs:
 
       - name: Install gke-gcloud-auth-plugin
         run: |
-          sudo apt update
-          sudo apt-get install google-cloud-cli-gke-gcloud-auth-plugin
+          run: sudo apt-get update && sudo apt-get install -y google-cloud-cli-gke-gcloud-auth-plugin
 
       - name: Initialize Terraform
         run: terraform init -backend-config="bucket=kube-wordpress-bucket" -backend-config="prefix=kube-wodpress/state" 
