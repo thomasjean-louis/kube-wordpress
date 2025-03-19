@@ -19,10 +19,8 @@ jobs:
     env:
       TF_VAR_gcp_credentials: ${{ secrets.GCP_CREDENTIALS }}
       TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}
-      TF_VAR_project_number: ${{ secrets.GCP_PROJECT_NUMBER}}
-      TF_VAR_pool_id: ${{ secrets.POOL_ID}}
-      TF_VAR_provider_id: ${{ secrets.PROVIDER_ID}}
-      TF_VAR_service_account_name: ${{ secrets.SERVICE_ACCOUNT_NAME}}
+      TF_VAR_workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER}}
+      TF_VAR_service_account: ${{ secrets.SERVICE_ACCOUNT}}
 
     steps:
       - name: Checkout Repo
@@ -40,8 +38,8 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: 'projects/${{ secrets.GCP_PROJECT_NUMBER}}/locations/global/workloadIdentityPools/${{secrets.POOL_ID}}/providers/${{ secrets.PROVIDER_ID}}'
-          service_account: '${{ secrets.SERVICE_ACCOUNT_NAME}}@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com'
+          workload_identity_provider: '${{ secrets.WORKLOAD_IDENTITY_PROVIDER}}'
+          service_account: '${{ secrets.SERVICE_ACCOUNT}}'
 
      
       - name: Install gke-gcloud-auth-plugin manually
