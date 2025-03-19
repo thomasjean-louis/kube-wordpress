@@ -21,6 +21,7 @@ jobs:
       TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}
       TF_VAR_workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER}}
       TF_VAR_service_account: ${{ secrets.SERVICE_ACCOUNT}}
+      TF_VAR_clusterName: ${{ secrets.SERVICE_ACCOUNT}}
 
     steps:
       - name: Checkout Repo
@@ -42,12 +43,16 @@ jobs:
           service_account: '${{ secrets.SERVICE_ACCOUNT}}'
 
      
-      - name: Install gke-gcloud-auth-plugin manually
-        run: |
-          export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-          gcloud auth application-default login --quiet    
+      - uses: "google-github-actions/setup-gcloud@v2"
+        with:
+          install_components: "gke-gcloud-auth-plugin"   
 
-
+      - name: Authenticate to GKE cluster
+        uses: google-github-actions/get-gke-credentials@v2
+        with:
+          cluster_name: gke-cluster-admin
+          location: us-east1-b
+  
       - name: Initialize Terraform
         run: terraform init -backend-config="bucket=kube-wordpress-bucket" -backend-config="prefix=kube-wodpress/state" 
 
