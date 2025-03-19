@@ -32,10 +32,6 @@ jobs:
         with:
           terraform_version: latest
 
-      - name: Print HTTP
-        run: |
-          curl -v https://httpbin.org/headers
-
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
@@ -47,11 +43,11 @@ jobs:
         with:
           install_components: "gke-gcloud-auth-plugin"   
 
-      - name: Authenticate to GKE cluster
-        uses: google-github-actions/get-gke-credentials@v2
-        with:
-          cluster_name: gke-cluster-admin
-          location: us-east1-b
+      # - name: Authenticate to GKE cluster
+      #   uses: google-github-actions/get-gke-credentials@v2
+      #   with:
+      #     cluster_name: gke-cluster-admin
+      #     location: us-east1-b
   
       - name: Initialize Terraform
         run: terraform init -backend-config="bucket=kube-wordpress-bucket" -backend-config="prefix=kube-wodpress/state" 
